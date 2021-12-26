@@ -1,11 +1,16 @@
 import React , {useState} from 'react';
-import {Table, Modal, Button, Form} from 'react-bootstrap';
+import {Table, Modal, Button, Form, Dropdown, DropdownButton} from 'react-bootstrap';
 import { FiEdit } from 'react-icons/fi';
-import { MdDeleteForever } from 'react-icons/md';
-
 
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+
+import { MdDeleteForever } from 'react-icons/md';
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure();
+
 
 
 
@@ -17,7 +22,8 @@ function App() {
   const handleClose = () => {
     setShow(false);
     setMovieName('');
-    setMovieType('');
+    setMovieDirector('');
+    setSelectGenre('');
     setEditItem(false);
   }
   const handleShow = () => setShow(true);
@@ -27,14 +33,16 @@ function App() {
   } 
   const handleDeleteClose = () => setDeleteShow(false);
   const [movieName, setMovieName] = useState('');
-  const [movieType, setMovieType] = useState('');
+  const [movieDirector, setMovieDirector] = useState('');
+  const[selectGenre, setSelectGenre] = useState('');
   const [editItem, setEditItem] = useState(false);
   const [movieId, setMovieId] = useState('');
   const [movies, setMovies] = useState([
     {
     id:1,
-    nameMovie:'ds',
-    genre:'fa'
+    nameMovie:'Love Story',
+    nameDirector: 'Zubair',
+    genre:'Romantic'
 
   }
   ]);
@@ -43,40 +51,58 @@ function App() {
   const movieChange = (event) =>{
     setMovieName(event.target.value);
   } 
-  const movieTypeChange = (event) =>{
-    setMovieType(event.target.value);
+  const movieDirectorChange = (event) =>{
+    setMovieDirector(event.target.value);
   } 
+
+
+  const movieGenreChange = (event) => {
+
+    setSelectGenre(event.target.value);
+    // console.log(event.target.value);
+    
+  }
+
    const addMovie = (e) =>{
          e.preventDefault();
          console.log(editItem);
          
-        if(editItem !== true && movieName !== '' && movieType !== ''){
+        if(editItem !== true && movieName !== '' && movieDirector !== '' && selectGenre !==''){
           const MovieInput = {
           id: Math.random()*(1,10),
           nameMovie: movieName,
-          genre: movieType,
+          nameDirector:movieDirector,
+          genre: selectGenre,
          
 
         }
         const movieList = [...movies, MovieInput ];
         console.log(movieList);
         setMovies(movieList);
-       
-      }
+         
+        toast.success('You have Successfully Added Record.', {position: toast.POSITION.BOTTOM_LEFT});
 
-        if(editItem !== false && movieName !== '' && movieType !== ''){
-          // console.log(movieId);
+       
+      }else if(editItem !== false && movieName !== '' && movieDirector !== ''){
+          console.log(movieId);
          
           // NewArray[checkthis].completed = true;
           setMovies(
             movies.map((elemData) => {
               if(elemData.id == movieId){
-                return {...elemData, nameMovie: movieName , genre: movieType}
+                return {...elemData, nameMovie: movieName , nameDirector: movieDirector, genre:selectGenre}
               }
               return elemData;
             })
           );
+
+          
+          toast.success('You have Successfully Updated Record.', {position: toast.POSITION.BOTTOM_LEFT});
+
         
+      }else{
+        toast.error('Please Fill the all Fields.', {position: toast.POSITION.BOTTOM_LEFT});
+
       }
       
         
@@ -85,28 +111,35 @@ function App() {
        
 
         setMovieName('');
-        setMovieType('');
+        setMovieDirector('');
+        setSelectGenre('');
         handleClose(true);
-
+        
   }
 
   const removeMovie = (movieId) => {
+ 
+      // Calling toast method by passing string
+     
         console.log(movieId);
     const removeItem =   movies.filter((movieData) => {
          return movieData.id !== movieId;
        });
        setMovies(removeItem);
        setDeleteShow(false);
+       toast.success('You have Successfully Deleted Record.', {position: toast.POSITION.BOTTOM_LEFT});
+      //  toast('You have Successfully Deleted.');
+  
   }
   
 
 
   const editMovie = (movId) => {
       
-       console.log(movId);
-       const movieData = movies.filter((movData) => {
-         return movData.id !== movId;
-       });
+      //  console.log(movId);
+      //  const movieData = movies.filter((movData) => {
+      //    return movData.id !== movId;
+      //  });
        const selectedItems = movies.find((item) => {
          return item.id === movId;
        });
@@ -117,7 +150,8 @@ function App() {
         handleShow(true);
         setMovieId(selectedItems.id);
        setMovieName(selectedItems.nameMovie);
-       setMovieType(selectedItems.genre);
+       setMovieDirector(selectedItems.nameDirector);
+       setSelectGenre(selectedItems.genre);
        setEditItem(true);
     
        
@@ -128,14 +162,14 @@ function App() {
     <div className='body'>
   <div className='container-fluid container_main'>
       <div className='row'>
-        <div className='col-md-6 offset-md-3 columncontainer'>
+        <div className='col-md-8 offset-md-2 columncontainer'>
           <div className='headingSections'>
           <h1>
            New Movies
          </h1>
 
          <Button className="btnAddMovie" onClick={handleShow}>
-        Add Movie
+        {editItem ? 'Edit Movie' : 'Add Movie' }
       </Button>
           </div>
           
@@ -144,60 +178,14 @@ function App() {
 <div className='MoviesListContainer'>
 
 
-
-         <Table  responsive>
-           <thead>
-             <tr className="text-center TableHeadingRow">
-               <th>
-                 #
-               </th>
-               <th>
-                 Movie Name
-               </th>
-               <th>
-                 Genre
-               </th>
-               <th>
-                 Actions
-               </th>
-             </tr>
-           </thead>
-           {/* <tbody >
-             {movies.map((data, index)=> {
-               return(
-                
-                  <tr key={index} className='tableRow'>
-                 <td className="text-center">
-                   {index}
-                 </td>
-                 <td className="text-center">
-                   {data.nameMovie}
-                 </td>
-                 <td className="text-center">
-                  {data.genre}
-                 </td>
-                 <td className="text-center">
-                
-                 <FiEdit size={26} onClick={() => editMovie(data.id)} />
-                 
-                  
-                  <MdOutlineDeleteSweep size={26}  onClick={()=>removeMovie(data.id)} />
-                  
-
-                
-                 </td>
-                 </tr>
-                
-               )
-             })}
-           </tbody> */}
-
-         </Table>
-
-
          <div className='tables_listContainer'>
                <div className='tablelistHeadingContainer'>
+               <div className='indexId'>#</div>
+                   <div className='nameMovie'>Movie Name</div>
+                   <div className='nameMovie'>Movie Director</div>
 
+                   <div className='genremovie'>Movie Genre</div>
+                   <div className='editicon'>Actions</div>
                </div>
             <div className='moviesListContainer'>
                {movies.map((data, ind)=> {
@@ -205,6 +193,7 @@ function App() {
                  <div className='listInsideContainer'>
                    <div className='indexId'>{ind}</div>
                    <div className='nameMovie'>{data.nameMovie}</div>
+                   <div className='nameMovie'>{data.nameDirector}</div>
                    <div className='genremovie'>{data.genre}</div>
                    <div className='editicon'>
                    <FiEdit className='editicondesign' onClick={() => editMovie(data.id)} />
@@ -231,7 +220,7 @@ function App() {
         keyboard={false}
       >
         <Modal.Header closeButton>
-          <Modal.Title>Add Movie</Modal.Title>
+          <Modal.Title className='headingModal'> {editItem ? 'Edit Movie' : 'Add Movie' }</Modal.Title>
         </Modal.Header>
         <Modal.Body>
         <Form onSubmit={addMovie}>
@@ -243,11 +232,22 @@ function App() {
   </Form.Group>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Movie Genre</Form.Label>
-    <Form.Control type="text" placeholder="Movie Type" value={movieType} onChange={movieTypeChange} />
+    <Form.Label>DirectorName</Form.Label>
+    <Form.Control type="text" placeholder="Movie Type" value={movieDirector} onChange={movieDirectorChange} />
+  </Form.Group>
+  <Form.Group className='mb-3' controlId='formBasicGenre'>
+         <Form.Label>Select Genre</Form.Label>
+         <Form.Select onChange={movieGenreChange} defaultValue={selectGenre}>
+  <option value="">Select Movie Genre</option>
+  <option value="Comedy">Comedy</option>
+  <option value="Entertainment">Entertainment</option>
+  <option value="Action">Action</option>
+  <option value="Sad">Sad</option>
+  <option value="Romantic">Romantic</option>
+</Form.Select>
   </Form.Group>
 
-  <Button variant={editItem ? 'primary' : 'success'} type="submit" >
+  <Button className={editItem ? 'yesDelete' :'addBtn'} type="submit" >
     {editItem ? 'Edit Movie' : 'Add Movie'}
   </Button>
 </Form>

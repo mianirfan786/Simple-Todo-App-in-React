@@ -33,6 +33,10 @@ margin-top: 40px;
   font-family: 'Courier New', Courier, monospace;
   
 }
+.headingModal{
+  font-size:32px;
+  font-family: 'Courier New', Courier, monospace;
+}
 .MoviesListContainer{
   padding:30px;
 }
@@ -47,6 +51,26 @@ margin-top: 40px;
 }
 .tableRow td{
   margin-top: 10px!important;
+}
+
+.tablelistHeadingContainer{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  /* background-color: white; */
+  border-radius: 4px!important;
+  color:white;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 18px;
+  font-weight: bold;
+  border: 1px solid white;
+  /* border-left:none; */
 }
 
 
@@ -134,5 +158,20 @@ margin-top: 40px;
   background-color: white !important;
   transition: 0.8s;
   color: rgba(255, 123, 0, 0.986) !important;
+
+}
+.addBtn{
+  background-color: rgba(34, 168, 0, 0.986)!important;
+  outline: none !important;
+  padding-left:30px !important;
+  padding-right: 30px !important;
+  border: 1px solid transparent !important;
+  
+}
+.addBtn:hover{
+  border:1px solid rgba(34, 168, 0, 0.986) !important;
+  background-color: white !important;
+  transition: 0.8s;
+  color: rgba(34, 168, 0, 0.986) !important;
 
 }
