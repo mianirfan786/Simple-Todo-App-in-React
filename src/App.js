@@ -2,13 +2,13 @@ import React , {useState} from 'react';
 import {Table, Modal, Button, Form, Dropdown, DropdownButton} from 'react-bootstrap';
 import { FiEdit } from 'react-icons/fi';
 
-import './App.css';
+// import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import { MdDeleteForever } from 'react-icons/md';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import './scss/todo.scss';
 toast.configure();
 
 

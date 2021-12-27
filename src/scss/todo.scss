@@ -1,0 +1,211 @@
+@import './_variables';
+
+
+@function weight($weight_name){
+  @return map-get($font-weights, $weight_name );
+
+}
+
+@mixin flexSpaceArround {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+@mixin flexBetweenCenter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+}
+
+
+@mixin theme($blue-theme: true) {
+  @if $blue-theme {
+   background-image: url('https://res.cloudinary.com/techling/image/upload/v1640598913/newblue_rfhnhi.png');
+  }
+  
+}
+
+body{
+    background-image: url('https://res.cloudinary.com/techling/image/upload/v1640455160/andras-vas-Bd7gNnWJBkU-unsplash_r8ohw8.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+   
+  }
+
+
+  .columncontainer{
+  
+    background-color:$container-color;
+    color:$text-color;
+  }
+
+  .headingSections{
+    padding-left: 30px;
+    padding-right: 30px;
+      @include flexBetweenCenter;
+  margin-top: 40px;
+  }
+
+
+  .headingSections h1{
+    font-size:$heading_font;
+    font-family: $font_family;
+
+    
+  }
+
+  .headingModal{
+    font-size:$heading_font;
+    font-family: $font_family;
+  }
+
+  .MoviesListContainer{
+    padding:30px;
+  }
+  
+  .TableHeadingRow{
+    color:$primary-color;
+  }
+
+  .tableRow{
+    background-color: $primary-color;
+    border-radius: 10px!important;
+    padding-top: 110px!important;
+  }
+  .tableRow td{
+    margin-top: 10px!important;
+  }
+
+
+  .tablelistHeadingContainer{
+    @include flexBetweenCenter;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  
+    /* background-color: white; */
+    border-radius: 4px!important;
+    color:$text-color;
+    font-family: $font_family;
+    font-size: $text_font;
+    font-weight: weight(bold);
+    border: 1px solid $primary-color;
+    
+  }
+  
+  
+  .listInsideContainer{
+    @include flexBetweenCenter;
+    padding-left: 30px;
+    padding-right: 30px;
+     padding-top: 10px;
+     padding-bottom: 10px;
+    background-color: $primary-color;
+    border-radius: 4px!important;
+    color:$black_color;
+    margin-top: 10px;
+
+    .editicondesign{
+        color:$green_color;
+        padding-right: 10px;
+        font-size: $heading_font;
+
+        &:hover{
+            cursor: pointer;
+        }
+        
+      }
+
+    .deleteiconDesign{
+        color:$danger_color;
+        font-size: $subheading_font;
+
+        &:hover{
+            cursor: pointer;
+        }
+      }
+  }
+  
+
+
+  
+
+  .btnAddMovie{
+    outline: none!important;
+    padding-left:30px !important;
+    padding-right:30px !important;
+  
+    border: none !important;;
+    background-color: rgba(255, 123, 0, 0.623)!important;
+  }
+  .btnAddMovie:hover{
+    background-color: rgba(255, 255, 255, 0.739)!important;
+    color:$black_color!important;
+    transition: 0.7s;
+    
+  }
+  
+  .headingDelete{
+    font-family: $font_family;
+    font-size:$large_text20;
+    text-align: center;
+  }
+  .btnsDeletepopup{
+  @include flexSpaceArround;
+  }
+  .noDelete{
+    background-color: $delete_confirmColor!important;
+    outline: none !important;
+    padding-left:30px !important;
+    padding-right: 30px !important;
+    border: 1px solid transparent !important;
+    
+  }
+
+  .noDelete:hover{
+    border:1px solid $delete_confirmColor !important;
+    background-color: $primary-color !important;
+    transition: 0.8s;
+    color: $delete_confirmColor !important;
+  
+  }
+  
+  .yesDelete{
+    background-color: $orange_color!important;
+    outline: none !important;
+    padding-left:30px !important;
+    padding-right: 30px !important;
+    border: 1px solid transparent !important;
+    
+  }
+  .yesDelete:hover{
+    border:1px solid $orange_color !important;
+    background-color: $primary-color !important;
+    transition: 0.8s;
+    color: $orange_color !important;
+  
+  }
+
+  .addBtn{
+    background-color: $light_greenColor!important;
+    outline: none !important;
+    padding-left:30px !important;
+    padding-right: 30px !important;
+    border: 1px solid transparent !important;
+    
+  }
+  .addBtn:hover{
+    border:1px solid $light_greenColor !important;
+    background-color: $primary-color !important;
+    transition: 0.8s;
+    color: $light_greenColor !important;
+  
+  }
+
+  .blue{
+    @include theme($blue-theme: true);
+  }
