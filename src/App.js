@@ -9,6 +9,7 @@ import { MdDeleteForever } from 'react-icons/md';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './scss/todo.scss';
+import HomeContainer from './containers/HomeContainer';
 toast.configure();
 
 
@@ -160,6 +161,7 @@ function App() {
  
   return (
     <div className='body'>
+      <HomeContainer />
   <div className='container-fluid container_main'>
       <div className='row'>
         <div className='col-md-8 offset-md-2 columncontainer'>
